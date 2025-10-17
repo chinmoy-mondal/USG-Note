@@ -10,13 +10,9 @@
 
     <!-- Splash Screen Theme -->
     <style name="Theme.USGNote.Splash" parent="Theme.SplashScreen">
-        <!-- Splash background color -->
         <item name="windowSplashScreenBackground">@color/white</item>
-        <!-- Splash icon -->
-        <item name="windowSplashScreenAnimatedIcon">@drawable/logo_splash</item>
-        <!-- Icon background color -->
+        <item name="windowSplashScreenAnimatedIcon">@drawable/logo</item>
         <item name="windowSplashScreenIconBackgroundColor">@color/white</item>
-        <!-- Theme to switch to after splash -->
         <item name="postSplashScreenTheme">@style/Theme.USGNote</item>
     </style>
 
