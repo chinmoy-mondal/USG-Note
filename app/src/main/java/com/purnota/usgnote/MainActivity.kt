@@ -1,7 +1,11 @@
 package com.purnota.usgnote
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
+import android.provider.Telephony.Mms.Intents
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.ListView
 import androidx.activity.ComponentActivity
 import androidx.core.splashscreen.SplashScreen
@@ -13,51 +17,29 @@ import com.google.android.material.textfield.TextInputEditText
 class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        // Install splash screen
-        val splashScreen: SplashScreen = installSplashScreen()
         super.onCreate(savedInstanceState)
+        Thread.sleep(3000)
+        installSplashScreen()
         setContentView(R.layout.activity_main)
 
-        // Keep splash for 2 seconds
-        var keepSplashOnScreen = true
-        splashScreen.setKeepOnScreenCondition { keepSplashOnScreen }
-        window.decorView.postDelayed({
-            keepSplashOnScreen = false
-        }, 2000)
+        //        Explicit Intent
+        val explicitButton = findViewById<Button>(R.id.explicitButton)
 
-        // Setup toolbar
-        val toolbar = findViewById<MaterialToolbar>(R.id.topAppBar)
-        toolbar.setNavigationOnClickListener {
-            // You can open drawer or show a menu here
+        explicitButton.setOnClickListener {
+            val explicitIntent = Intent(this,SecondActivity::class.java)
+            startActivity(explicitIntent)
+            finish()
         }
 
-        // Setup search and list
-        setupSearchAndList()
-    }
 
-    private fun setupSearchAndList() {
-        val searchBar = findViewById<TextInputEditText>(R.id.searchBar)
-        val listView = findViewById<ListView>(R.id.listView)
+        //        Implicit Intent
+        val url = "https://www.google.com"
+        val implicitButton = findViewById<Button>(R.id.implicitButton)
 
-        val items = listOf(
-            "Mathematics",
-            "English",
-            "Physics",
-            "Chemistry",
-            "Biology",
-            "Computer Science",
-            "Economics",
-            "History",
-            "Geography",
-            "Civics"
-        )
-
-        val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, items)
-        listView.adapter = adapter
-
-        searchBar.addTextChangedListener { text ->
-            val filtered = items.filter { it.contains(text.toString(), ignoreCase = true) }
-            listView.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, filtered)
+        implicitButton.setOnClickListener {
+            val  implicitIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            startActivity(implicitIntent)
         }
+
     }
 }
